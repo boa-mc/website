@@ -125,4 +125,4 @@ try:
     Dashboard()
 except PermissionError:
     print("\033[91mERROR: To use ports lower than 1024, you will need to run the server with sudo.\n"
-          "If you want to change the port, delete the config.json file.")
+          "If you want to change the port, run main.py with --setup.")

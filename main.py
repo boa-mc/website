@@ -1,17 +1,24 @@
-""" Main script which will start the discord bot after, if needed, the setup wizard."""
+""" Main script which will start the web server after, if needed, the setup wizard."""
 
 import setup_wizard
 import os
-import subprocess
 import sys
+import argparse
+
+parser = argparse.ArgumentParser(description='The mc-server-tools website node.')
+parser.add_argument('-s', '--setup', action="store_true")
+args = parser.parse_args()
 
 
 def install_dependencies():
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pip", "-U"])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "dash"])
+    print("Installing dependencies...")
+    if os.system(sys.executable + " -m pip install pip -U > /dev/null") or \
+            os.system(sys.executable + " -m pip install dash > /dev/null"):
+        print("\033[91mERROR: Pip failed, is it installed?")
+        exit(1)
 
 
-if not os.path.isfile("config.json"):
+if not os.path.isfile("config.json") or args.setup is True:
     install_dependencies()
     setup_wizard.Wizard()
 

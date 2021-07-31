@@ -26,9 +26,15 @@ class Wizard:
                 print("The ping to the server failed! Please verify it is running and the IP is correct.")
         os.system("clear")
         while True:
-            port = input("On which port do you want your web server to be running? ")
+            port = int(input("On which port do you want your web server to be running? "))
             if self.is_port_in_use(port):
                 print("This port is already in use.")
+            elif port < 1024:
+                print("Normal system users are not allowed to use ports below 1024.\n"
+                      "You will have to run the server as root.")
+                answer = input("Do you want to continue? [Y/n]")
+                if answer.lower() == "y" or answer == "":
+                    break
             else:
                 break
         os.system("clear")

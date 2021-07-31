@@ -9,8 +9,8 @@ from remote import Remote
 
 class Dashboard:
     def __init__(self):
-        self.host = json.load(open("config.json", "r"))['server_address']
-        self.remote = Remote(self.host)
+        self.config = json.load(open("config.json", "r"))
+        self.remote = Remote(self.config['server_address'])
         self.app = dash.Dash(
             title="mc-server-tools",
             update_title=None,
@@ -47,7 +47,7 @@ class Dashboard:
         )
 
         self.make_button_functions()
-        self.app.run_server(host="0.0.0.0")
+        self.app.run_server(host="0.0.0.0", port=self.config['port'])
 
     def make_button_functions(self):
         self.logcache = ""
@@ -121,5 +121,8 @@ class Dashboard:
                     return ""
             return value
 
-
-Dashboard()
+try:
+    Dashboard()
+except PermissionError:
+    print("\033[91mERROR: To use ports lower than 1024, you will need to run the server with sudo.\n"
+          "If you want to change the port, delete the config.json file.")

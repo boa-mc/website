@@ -12,7 +12,7 @@ class Dashboard:
         self.host = json.load(open("config.json", "r"))['server_address']
         self.remote = Remote(self.host)
         self.app = dash.Dash(
-            title="Discadminecraft",
+            title="mc-server-tools",
             update_title=None,
             external_stylesheets=[{"href": "assets/style.css", "rel": "stylesheet"}]
         )

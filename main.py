@@ -1,6 +1,5 @@
 """ Main script which will start the web server after, if needed, the setup wizard."""
 
-import setup_wizard
 import os
 import sys
 import argparse
@@ -13,13 +12,12 @@ args = parser.parse_args()
 def install_dependencies():
     print("Installing dependencies...")
     if os.system(sys.executable + " -m pip install pip -U > /dev/null") or \
-            os.system(sys.executable + " -m pip install dash > /dev/null"):
+            os.system(sys.executable + " -m pip install dash getmac > /dev/null"):
         print("\033[91mERROR: Pip failed, is it installed?")
         exit(1)
 
-
-if not os.path.isfile("config.json") or args.setup is True:
+if not os.path.isfile("config.json") or args.setup:
     install_dependencies()
-    setup_wizard.Wizard()
+    os.system(sys.executable + " setup_wizard.py")
 
-import start_dash
+os.system(sys.executable + " start_dash.py")

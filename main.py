@@ -12,7 +12,7 @@ args = parser.parse_args()
 def install_dependencies():
     print("Installing dependencies...")
     if os.system(sys.executable + " -m pip install pip -U > /dev/null") or \
-            os.system(sys.executable + " -m pip install dash getmac > /dev/null"):
+            os.system(sys.executable + " -m pip install dash getmac wakeonlan > /dev/null"):
         print("\033[91mERROR: Pip failed, is it installed?")
         exit(1)
 

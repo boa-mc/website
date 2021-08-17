@@ -32,7 +32,7 @@ class Wizard:
             macaddress = None
         else:
             macaddress = get_mac_address()
-            print("Apparently you have chosen to run the webserver on another computer than the Minecraft server.\n You will be able to remotely turn on the server using Wake on Lan (WoL) if this is enabled in its BIOS.\nIf you want to disable this, set mac_address to null in config.json.")
+            print("Apparently, you have chosen to run the webserver on another computer than the Minecraft server.\nYou will be able to remotely turn on the server using Wake on Lan (WoL) if this is enabled in its BIOS.\nIf you want to disable this, set mac_address to null in config.json.")
         while True:
             port = int(input("On which port do you want your web server to be running? "))
             if self.is_port_in_use(port):

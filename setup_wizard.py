@@ -4,6 +4,7 @@ import os
 from threading import Thread
 import socket
 from time import sleep
+from getmac import get_mac_address
 
 
 class Wizard:
@@ -15,6 +16,8 @@ class Wizard:
         print("If you have not already set up the Minecraft server, please do it now. On start, it should show an IP.")
         while True:
             server_address = input("What's that IP? ")
+            if server_address == socket.getfqdn():
+                server_address = "localhost"
             print("Trying to connect to the server...")
             t = Thread(target=self.ping_server, args=(server_address,))
             self.pingOk = False
@@ -25,6 +28,13 @@ class Wizard:
             else:
                 print("The ping to the server failed! Please verify it is running and the IP is correct.")
         os.system("clear")
+        if server_address == "localhost":
+            macaddress = None
+        else:
+            macaddress = get_mac_address()
+            print("Apparently you have chosen to run the webserver on another computer as the Minecraft server.\n \
+                You will be able to remotely turn on the server using Wake on Lan (WoL) if this is enabled in its BIOS.\n\
+                If you want to disable this, set mac_address to null in config.json.")
         while True:
             port = int(input("On which port do you want your web server to be running? "))
             if self.is_port_in_use(port):
@@ -41,7 +51,8 @@ class Wizard:
         print("The setup is now done. Starting the web server...")
         config = {
             "server_address": server_address,
-            "port": port
+            "port": port,
+            "macaddress": macaddress
         }
         json.dump(config, open("config.json", "w"))
 
@@ -59,3 +70,6 @@ class Wizard:
     def is_port_in_use(self, port):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             return s.connect_ex(('localhost', port)) == 0
+
+
+Wizard()

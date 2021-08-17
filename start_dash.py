@@ -5,6 +5,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from remote import Remote
+import os
+from wakeonlan import send_magic_packet
 
 
 class Dashboard:
@@ -45,6 +47,7 @@ class Dashboard:
                 html.P(id='placeholder2')
             ]
         )
+        
 
         self.make_button_functions()
         self.app.run_server(host="0.0.0.0", port=self.config['port'])
@@ -82,6 +85,8 @@ class Dashboard:
         @self.app.callback(Output('placeholder', 'children'),
                            Input('start-button', 'n_clicks'))
         def start_server(n):
+            if self.config["macaddress"] is not None and os.system("ping -c 1 192.168.1.10 -W 1") == 1:
+                send_magic_packet(self.config["macaddress"])
             if n is not None:
                 while True:
                     try:

@@ -1,0 +1,76 @@
+.console {
+    border-radius: 5px;
+    background: var(--dark);
+    padding: 0 0 0 0;
+    height: 750px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    color: var(--light);
+}
+.console-title {
+    font-size: 16px;
+    padding: 8px 12px;
+    background: var(--darker);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+.warning {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin-left: auto; 
+    margin-right: 0;
+    background-color: var(--warn);
+    display: none;
+    font-size: 12px;
+}
+.console-log {
+    padding-top: 3px;
+    display: block;
+    flex-grow: 1;
+    word-break: break-all;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 12px;
+}
+.console-in {
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    background-color: var(--darker);
+    border-radius: 5px;
+
+}
+.console-in-start {
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-main);
+    box-sizing: border-box;
+}
+.console-command-input {
+    padding: 5px;
+    background: 0 0;
+    color: var(--light);
+    border: none;
+    outline: none;
+    height: 40px;
+}
+:root {
+    --font-main: Play, sans-serif;
+    --font-mono: "Roboto Mono", sans-serif;
+    --bold: 700;
+    --dark: #2D3943;
+    --darker: #1c2329;
+    --light: #f0f0f0;
+    --main: #2b87d3;
+    --danger: #F62451;
+    --success: #1fd78d;
+    --warn: #EB7B59;
+    --loading: #A4A4A4;
+    --dark-mode: #161c21;
+    --dark-text: #47535D;
+    --dark-mark: #40505c;
+    --dark-hover: #47535D;
+}
